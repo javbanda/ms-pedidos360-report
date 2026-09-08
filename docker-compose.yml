@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  postgres-report:
+    image: postgres:16
+    container_name: pedidos360-report-db
+    environment:
+      POSTGRES_DB: pedidos360_report
+      POSTGRES_USER: report_user
+      POSTGRES_PASSWORD: report_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_report_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_report_data:
