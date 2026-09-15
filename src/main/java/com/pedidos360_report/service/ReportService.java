@@ -29,5 +29,21 @@ public class ReportService {
         return conteoPorEstado.entrySet().stream()
             .map(entry -> new EstadoActivoDTO(entry.getKey(), entry.getValue()))
             .collect(Collectors.toList());
+        }
+    
+        public LeadTimeDTO calcularLeadTimePromedio() {
+        List<Reporte> entregados = reporteRepository.findByEstado("ENTREGADO");
+
+        List<Long> minutosPorPedido = entregados.stream()
+            .filter(r -> r.getFechaCreacion() != null && r.getFechaEntrega() != null)
+            .map(r -> Duration.between(r.getFechaCreacion(), r.getFechaEntrega()).toMinutes())
+            .collect(Collectors.toList());
+
+        double promedio = minutosPorPedido.stream()
+            .mapToLong(Long::longValue)
+            .average()
+            .orElse(0.0);
+
+        return new LeadTimeDTO(promedio, minutosPorPedido.size());
     }
 }
