@@ -30,6 +30,9 @@ public class ReportService {
             .map(entry -> new EstadoActivoDTO(entry.getKey(), entry.getValue()))
             .collect(Collectors.toList());
         }
+            public Reporte guardarReporte(Reporte reporte) {
+        return reporteRepository.save(reporte);
+    }
     
         public LeadTimeDTO calcularLeadTimePromedio() {
         List<Reporte> entregados = reporteRepository.findByEstado("ENTREGADO");
