@@ -5,6 +5,9 @@ import com.pedidos360_report.entity.Reporte;
 import com.pedidos360_report.repository.ReporteRepository;
 import org.springframework.stereotype.Service;
 import com.pedidos360_report.dto.LeadTimeDTO;
+import com.pedidos360_report.dto.VentasPorHoraDTO;
+import java.util.Comparator;
+
 import java.time.Duration;
 
 import java.util.List;
@@ -32,6 +35,21 @@ public class ReportService {
         }
             public Reporte guardarReporte(Reporte reporte) {
         return reporteRepository.save(reporte);
+    }
+        public List<VentasPorHoraDTO> calcularVentasPorHora() {
+        List<Reporte> reportes = reporteRepository.findAll();
+
+        Map<Integer, Double> ventasPorHora = reportes.stream()
+            .filter(r -> r.getFechaCreacion() != null && r.getMontoTotal() != null)
+            .collect(Collectors.groupingBy(
+                r -> r.getFechaCreacion().getHour(),
+                Collectors.summingDouble(Reporte::getMontoTotal)
+            ));
+
+        return ventasPorHora.entrySet().stream()
+            .map(entry -> new VentasPorHoraDTO(entry.getKey(), entry.getValue()))
+            .sorted(Comparator.comparingInt(VentasPorHoraDTO::getHora))
+            .collect(Collectors.toList());
     }
     
         public LeadTimeDTO calcularLeadTimePromedio() {
