@@ -4,6 +4,8 @@ import com.pedidos360_report.dto.EstadoActivoDTO;
 import com.pedidos360_report.entity.Reporte;
 import com.pedidos360_report.repository.ReporteRepository;
 import org.springframework.stereotype.Service;
+import com.pedidos360_report.dto.LeadTimeDTO;
+import java.time.Duration;
 
 import java.util.List;
 import java.util.Map;
