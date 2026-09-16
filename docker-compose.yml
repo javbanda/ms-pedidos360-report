@@ -11,5 +11,17 @@ services:
     volumes:
       - postgres_report_data:/var/lib/postgresql/data
 
+  ms-report:
+    build: .
+    container_name: ms-pedidos360-report
+    depends_on:
+      - postgres-report
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-report:5432/pedidos360_report
+      SPRING_DATASOURCE_USERNAME: report_user
+      SPRING_DATASOURCE_PASSWORD: report_pass
+    ports:
+      - "5000:5000"
+
 volumes:
   postgres_report_data:
