@@ -1,0 +1,14 @@
+{
+  "properties": [
+    {
+      "name": "app.kafka.topics.estados",
+      "type": "java.lang.String",
+      "description": "Topic Kafka para eventos de cambios de estado de pedidos."
+    },
+    {
+      "name": "app.kafka.topics.ventas",
+      "type": "java.lang.String",
+      "description": "Topic Kafka para eventos de ventas de pedidos entregados."
+    }
+  ]
+}
