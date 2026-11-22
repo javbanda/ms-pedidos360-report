@@ -1,15 +1,18 @@
+
 package com.pedidos360_report.controller;
 
 import com.pedidos360_report.dto.EstadoActivoDTO;
+import com.pedidos360_report.dto.KpisDTO;
 import com.pedidos360_report.dto.LeadTimeDTO;
+import com.pedidos360_report.dto.VentasPorHoraDTO;
 import com.pedidos360_report.entity.Reporte;
 import com.pedidos360_report.service.ReportService;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.pedidos360_report.dto.VentasPorHoraDTO;
 
 import java.util.List;
 
@@ -24,8 +27,8 @@ public class ReportController {
     }
 
     @GetMapping("/kpis")
-    public String obtenerKpis() {
-        return "Microservicio de reportes funcionando correctamente";
+    public KpisDTO obtenerKpis() {
+        return reportService.obtenerKpis();
     }
 
     @GetMapping("/estados-activos")
@@ -37,7 +40,8 @@ public class ReportController {
     public LeadTimeDTO obtenerLeadTimePromedio() {
         return reportService.calcularLeadTimePromedio();
     }
-        @GetMapping("/ventas-por-hora")
+
+    @GetMapping("/ventas-por-hora")
     public List<VentasPorHoraDTO> obtenerVentasPorHora() {
         return reportService.calcularVentasPorHora();
     }

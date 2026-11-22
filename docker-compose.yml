@@ -20,8 +20,18 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-report:5432/pedidos360_report
       SPRING_DATASOURCE_USERNAME: report_user
       SPRING_DATASOURCE_PASSWORD: report_pass
+      KAFKA_BOOTSTRAP_SERVERS: kafka-1:29092,kafka-2:29092
     ports:
       - "5000:5000"
+    networks:
+      - default
+      - kafka
 
 volumes:
   postgres_report_data:
+
+networks:
+  default:
+  kafka:
+    external: true
+    name: pedidos360-kafka
